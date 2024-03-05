@@ -21,13 +21,12 @@ element.click()
 # link = driver.find_element(By.PARTIAL_LINK_TEXT, "Bournemouth University")
 # link.click()
 
-#target_div = driver.find_element_by_css_selector("div.main.page-content.wrapper div.region.region-content section.block.block-slices.block-content-slices.block-slices-slice-slice-related-courses-2.clearfix div.related-items.view-mode-summary-only div:has(h4:contains('Computing & Informatics'))")
-# parent_div = target_div.find_element_by_xpath("..")
-# links = parent_div.find_elements_by_tag_name("a")
 
-# for link in links:
-#     print(link.get_attribute("href"))
+related_courses = driver.find_element(By.ID, "block-slices-slice-slice-related-courses-2")
+courses = related_courses.find_elements(By.TAG_NAME, "a")
+
+for course in courses:
+    print(course.get_attribute("href"))
 
 time.sleep(60)
-
-# driver.quit()
+driver.quit()
