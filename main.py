@@ -15,6 +15,7 @@ element = WebDriverWait(driver, 10).until(
     )
 element.click()
 
+###manually naviagtes to the website
 # input_element = driver.find_element(By.CLASS_NAME, "gLFyf")
 # input_element.send_keys("Bournemouth University" + Keys.ENTER)
 
@@ -22,11 +23,24 @@ element.click()
 # link.click()
 
 
-related_courses = driver.find_element(By.ID, "block-slices-slice-slice-related-courses-2")
-courses = related_courses.find_elements(By.TAG_NAME, "a")
+### gets list of courses
+# related_courses = driver.find_element(By.ID, "block-slices-slice-slice-related-courses-2")
+# courses = related_courses.find_elements(By.TAG_NAME, "a")
+# for course in courses:
+#     print(course.text)
 
-for course in courses:
-    print(course.get_attribute("href"))
+
+### gets list of departments
+# department = driver.find_elements(By.CSS_SELECTOR, "#block-slices-slice-slice-related-courses-2 .related-items-title h4")
+# for department in department:
+#     print(department.text)
+
+
+###gets list of courses from predefined department
+# department = driver.find_element(By.XPATH, '//div[h4[text()="Computing & Informatics"]]/following-sibling::div')
+# courses = department.find_elements(By.TAG_NAME, "a")
+# for course in courses:
+#     print(course.text)
 
 time.sleep(60)
 driver.quit()
