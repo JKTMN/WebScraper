@@ -15,27 +15,17 @@ element = WebDriverWait(driver, 10).until(
     )
 element.click()
 
-###manually naviagtes to the website
-# input_element = driver.find_element(By.CLASS_NAME, "gLFyf")
-# input_element.send_keys("Bournemouth University" + Keys.ENTER)
-
-# link = driver.find_element(By.PARTIAL_LINK_TEXT, "Bournemouth University")
-# link.click()
-
-
-
-
 ### gets list of courses
-related_courses = driver.find_element(By.ID, "block-slices-slice-slice-related-courses-2")
-courses = related_courses.find_elements(By.TAG_NAME, "a")
-for course in courses:
-    print(course.text)
+# related_courses = driver.find_element(By.ID, "block-slices-slice-slice-related-courses-2")
+# courses = related_courses.find_elements(By.TAG_NAME, "a")
+# for course in courses:
+#     print(course.text)
 
 
 ### gets list of departments
-department = driver.find_elements(By.CSS_SELECTOR, "#block-slices-slice-slice-related-courses-2 .related-items-title h4")
-for department in department:
-    print(department.text)
+# department = driver.find_elements(By.CSS_SELECTOR, "#block-slices-slice-slice-related-courses-2 .related-items-title h4")
+# for department in department:
+#     print(department.text)
 
 
 ###gets list of courses from predefined department
@@ -51,12 +41,10 @@ while True:
     if select_department != "":
         break
 
-department = driver.find_element(By.XPATH, '//div[h4[contains(text(),"' + select_department + '")]]/following-sibling::div')
+department = driver.find_element(By.XPATH, '//div[h4[contains(translate(text(),"ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz"),"' + select_department.lower() + '")]]/following-sibling::div')
 courses = department.find_elements(By.TAG_NAME, "a")
 for course in courses:
     print(course.text)
 
-#computing & informatics
-#Computing & Informatics
 time.sleep(60)
 driver.quit()
