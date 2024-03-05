@@ -36,15 +36,15 @@ element.click()
 
 
 ### Asks user what department they would like to search for
-while True:
-    select_department = input("What department would you like to search for: ")
-    if select_department != "":
-        break
+# while True:
+#     select_department = input("What department would you like to search for: ")
+#     if select_department != "":
+#         break
 
-department = driver.find_element(By.XPATH, '//div[h4[contains(translate(text(),"ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz"),"' + select_department.lower() + '")]]/following-sibling::div')
-courses = department.find_elements(By.TAG_NAME, "a")
-for course in courses:
-    print(course.text)
+# department = driver.find_element(By.XPATH, '//div[h4[contains(translate(text(),"ABCDEFGHIJKLMNOPQRSTUVWXYZ","abcdefghijklmnopqrstuvwxyz"),"' + select_department.lower() + '")]]/following-sibling::div')
+# courses = department.find_elements(By.TAG_NAME, "a")
+# for course in courses:
+#     print(course.text)
 
 time.sleep(60)
 driver.quit()
