@@ -5,10 +5,10 @@ The crawler will then alter the URL of the website to navigate through paginatio
 It is currently hard coded to stop after 35 pages.
 
 - findCourses.py: This project scrapes through the Bournemouth University Website and completes 1 of 4 tasks:
-- - 1. Scrapes and returns every course provided by Bournemouth University.
-- - 2. Scrapes and returns every academic department at Bournemouth University
-- - 3. Scrapes and returns all of the courses tied to a pre determined academic department
-- - 4. Scrapes and returns all of the courses tied to an academic department which the user can input
+-  1 Scrapes and returns every course provided by Bournemouth University.
+-  2 Scrapes and returns every academic department at Bournemouth University
+-  3 Scrapes and returns all of the courses tied to a pre determined academic department
+-  4 Scrapes and returns all of the courses tied to an academic department which the user can input
 
 
 ## Table of Contents
