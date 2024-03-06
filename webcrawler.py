@@ -5,9 +5,9 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-import re
 from validate_email import validate_email
+import json
+import os
 
 
 class webCrawler():
@@ -34,13 +34,29 @@ class webCrawler():
                 break
 
     def scrapeEmailAddresses(self):
-        html = self.driver.page_source  #sets a variable to be the webpage source
-        soup = BeautifulSoup(html, "html.parser")  #uses bs4 to parse the html
-        emailAddresses = soup.find_all(string=lambda text: "@" in text)  #searches the html to find strings containing "@"
-        for emailAddress in emailAddresses:  #filters through found email addresses
-            if emailAddress and validate_email(emailAddress) and emailAddress not in self.emailAddressList:
-                #checks to see if email address is true, it is a valid email address and not already stored
-                self.emailAddressList.append(emailAddress.text)  #stores email address
+        html = self.driver.page_source  # sets a variable to be the webpage source
+        soup = BeautifulSoup(html, "html.parser")  # uses bs4 to parse the html
+        emailAddresses = soup.find_all(string=lambda text: "@" in text)  # searches the html to find strings containing "@"
+        
+        for emailAddress in emailAddresses:  # filters through found email addresses
+            if emailAddress and validate_email(emailAddress) and emailAddress.text not in self.emailAddressList:
+                # checks to see if email address is true, it is a valid email address and not already stored
+                self.emailAddressList.append(emailAddress.text)  # stores email address
+        
+        # Check if the JSON file exists
+        if os.path.exists('emailAddresses.json'):
+            # Load existing email addresses from the JSON file
+            with open('emailAddresses.json', 'r') as f:
+                existing_email_addresses = json.load(f)
+            
+            # Combine the existing email addresses with the new ones, removing duplicates
+            updated_email_addresses = list(set(existing_email_addresses + self.emailAddressList))
+        else:
+            updated_email_addresses = self.emailAddressList
+
+        # Dump the updated email addresses into the JSON file
+        with open('emailAddresses.json', 'w') as f:
+            json.dump(updated_email_addresses, f, indent=4)
 
     def openPageList(self):
         self.click_next_page()  #calls the click_next_page function
@@ -52,18 +68,16 @@ class webCrawler():
 
 
 
-# Initialize the service and driver
+#Initialize the service and driver
 service = Service(executable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 
-# Initializing empty lists
+#Initializing empty lists
 emailAddressList = []
 
-# Initializing object and calling functions
+#Initializing object and calling functions
 Crawler = webCrawler(service, driver, "", emailAddressList)
 
+#calling the functions to start the webscraper
 Crawler.firstWebpage()
 Crawler.openPageList()
-
-print("Email addresses are:")
-print(Crawler.emailAddressList)
