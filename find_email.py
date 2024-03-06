@@ -7,20 +7,15 @@ from selenium.webdriver.common.by import By
 service = Service(executable_path="chromedriver.exe")
 driver = webdriver.Chrome(service=service)
 
-url = input("Enter URL: ")
 
-driver.get(url)
+def get_email(URL):
+    driver.get(URL)
+    html = driver.page_source
+    driver.close()
+    soup = BeautifulSoup(html, "html.parser")
+    email_elements = soup.find_all(string=lambda text: "@" in text)
+    for email in email_elements:
+        print(email.text)
 
-html = driver.page_source
 
-next_page = driver.find_element(By.TAG_NAME, "a")
-
-driver.close()
-
-soup = BeautifulSoup(html, "html.parser")
-
-email_elements = soup.find_all(string=lambda text: "@" in text)
-
-for email in email_elements:
-    print(email.text)
-
+get_email("https://www.solent.ac.uk/courses/undergraduate/education-ba/2024/ba-hons-education-3-years-2024")
